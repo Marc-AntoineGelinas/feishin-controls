@@ -101,14 +101,14 @@ const (
 )
 
 func ClientSimpleEvent(event SimpleEvent) {
-	request := map[string]interface{}{
+	request := map[string]any{
 		"event": string(event),
 	}
 	websocket.SendRequest(request)
 }
 
 func Position(position int) {
-	request := map[string]interface{}{
+	request := map[string]any{
 		"event":    "position",
 		"position": position,
 	}
@@ -116,7 +116,7 @@ func Position(position int) {
 }
 
 func Favorite(favorite bool, songId string) {
-	request := map[string]interface{}{
+	request := map[string]any{
 		"event":    "favorite",
 		"favorite": favorite,
 		"id":       songId,
