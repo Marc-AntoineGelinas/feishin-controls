@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
+	"os"
 	"path/filepath"
 
 	"github.com/marc-antoinegelinas/feishin-controls/internal/config"
@@ -14,6 +16,27 @@ var rootCmd = &cobra.Command{
 	Use:   "feishin-controls",
 	Short: "feishin-controls is a cli tool to control feishin",
 	Long:  "feishin-controls is a cli tool to control feishin via the websockets using the Remote Control",
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		configFilePath, err := config.GetConfigFilePath()
+		if err != nil {
+			log.Fatal("could not get config dir:", err)
+		}
+
+		viper.SetConfigName("config")
+		viper.SetConfigType("yml")
+		viper.AddConfigPath(filepath.Dir(configFilePath))
+
+		if err := viper.ReadInConfig(); err != nil {
+			if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+				if cmd.Name() != "init" {
+					fmt.Println("No config file found. Run the <init> command to generate it")
+					os.Exit(1)
+				}
+			} else {
+				log.Fatal("config.yml was found, but something else went wrong:\n", err)
+			}
+		}
+	},
 }
 
 func Execute() error {
@@ -22,25 +45,5 @@ func Execute() error {
 
 func init() {
 	cobra.OnInitialize()
-	initConfig()
 	websocket.Authenticate()
-}
-
-func initConfig() {
-	configFilePath, err := config.GetConfigFilePath()
-	if err != nil {
-		log.Fatal("could not get config dir:", err)
-	}
-
-	viper.SetConfigName("config")
-	viper.SetConfigType("yml")
-	viper.AddConfigPath(filepath.Dir(configFilePath))
-
-	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			log.Fatal("config.yml wasn't found in the running directory. Create and populate it:\n", err)
-		} else {
-			log.Fatal("config.yml was found, but something else went wrong:\n", err)
-		}
-	}
 }
