@@ -11,15 +11,15 @@ import (
 )
 
 var (
-	relative bool
-	backward bool
+	relativePos bool
+	backwardPos bool
 )
 
 func init() {
 	rootCmd.AddCommand(positionCmd)
 
-	positionCmd.Flags().BoolVarP(&relative, "relative", "r", false, "New position is relative to track current position.")
-	positionCmd.Flags().BoolVarP(&backward, "backward", "b", false, "Rewinds current position with new position.")
+	positionCmd.Flags().BoolVarP(&relativePos, "relative", "r", false, "New position is relative to track current position.")
+	positionCmd.Flags().BoolVarP(&backwardPos, "backward", "b", false, "Rewinds current position with new position.")
 }
 
 var positionCmd = &cobra.Command{
@@ -30,10 +30,10 @@ var positionCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		pos, err := strconv.Atoi(args[0])
 		if err != nil {
-			log.Fatalf("Failed to parse %d to int: %s", pos, err.Error())
+			log.Fatalf("Failed to parse argument to int", pos, err.Error())
 		}
 
-		if relative {
+		if relativePos {
 			var response controls.ServerResponse
 			err := json.Unmarshal(websocket.GetServerMessage(), &response)
 			if err != nil {
@@ -42,7 +42,7 @@ var positionCmd = &cobra.Command{
 
 			currPos := int(response.Data.Position)
 
-			if backward {
+			if backwardPos {
 				pos = currPos - pos
 			} else {
 				pos = currPos + pos
