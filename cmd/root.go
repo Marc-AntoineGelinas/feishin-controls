@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/marc-antoinegelinas/feishin-controls/internal/websocket"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -20,6 +21,7 @@ func Execute() error {
 func init() {
 	cobra.OnInitialize()
 	initConfig()
+	websocket.Authenticate()
 }
 
 func initConfig() {
