@@ -3,7 +3,16 @@ feishin-controls is a CLI project written in go to interact with [feishin](https
 
 # How to install
 ## Using release
-TODO
+Download the release for your operating system.
+
+You may need to set permissions on the file to be able to use it.
+
+On Linux :
+```bash
+chmod +x feishin-controls
+```
+
+Download config.yml from this repo, or create it manually with the same name. Then refer to the [setup section](#How-to-use/Setup)
 ## Build manually
 feishin-controls is a go project, which means you can easily build the executable for your operating system.
 
