@@ -40,9 +40,17 @@ As you'll see underneath the control, there is also a port, username and passwor
 
 You can modify these values if needed, but if you do not care about authentication you can also leave the username and password fields blank. Only the port is required.
 
-If you've cloned the project, you'll find a config.yml file at the root. Otherwise, you'll need to create it alongside the executable.
-Fill in the values as you've configured in Feishin and feishin-controls will read these values at runtime to authenticate to the remote control server.
-
+You'll use these values to initialize feishin-controls' config file.
+You can run
+```bash
+./feishin-controls init
+```
+for an interactive prompt where you'll be asked to fill in the parameters.
+Or you can use
+```bash
+./feishin-controls init [url] [username] [password]
+```
+to directly pass the parameters and create the config file
 ## Usage
 You can then get a list of the different commands using
 ```bash
