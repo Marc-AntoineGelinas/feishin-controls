@@ -132,3 +132,11 @@ func Rate(songId string, rating int) {
 	}
 	websocket.SendRequest(request)
 }
+
+func Volume(volume int) {
+	request := map[string]any{
+		"event":  "volume",
+		"volume": volume,
+	}
+	websocket.SendRequest(request)
+}
