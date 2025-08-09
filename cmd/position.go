@@ -23,9 +23,9 @@ func init() {
 }
 
 var positionCmd = &cobra.Command{
-	Use:   "position",
-	Short: "Set track favorite status",
-	Long:  "Set a track as favorite or remove favorite status",
+	Use:   "position [time]",
+	Short: "Set track position",
+	Long:  "Set the track current playing position",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		pos, err := strconv.Atoi(args[0])
