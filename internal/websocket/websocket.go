@@ -56,7 +56,7 @@ func GetServerMessage() []byte {
 	return message
 }
 
-func SendRequest(request map[string]string) {
+func SendRequest(request map[string]interface{}) {
 	if connection == nil {
 		_, file, no, _ := runtime.Caller(1)
 		log.Fatalf("Connection error in %s#%d\n", file, no)

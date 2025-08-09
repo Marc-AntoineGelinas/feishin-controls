@@ -102,16 +102,25 @@ const (
 )
 
 func ClientSimpleEvent(event SimpleEvent) {
-	request := map[string]string{
+	request := map[string]interface{}{
 		"event": string(event),
 	}
 	websocket.SendRequest(request)
 }
 
 func Position(position int) {
-	request := map[string]string{
+	request := map[string]interface{}{
 		"event":    "position",
 		"position": strconv.Itoa(position),
+	}
+	websocket.SendRequest(request)
+}
+
+func Favorite(favorite bool, songId string) {
+	request := map[string]interface{}{
+		"event":    "favorite",
+		"favorite": favorite,
+		"id":       songId,
 	}
 	websocket.SendRequest(request)
 }
