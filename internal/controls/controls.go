@@ -81,7 +81,7 @@ type ServerResponse struct {
 			UniqueID     string    `json:"uniqueId"`
 			UpdatedAt    time.Time `json:"updatedAt"`
 			UserFavorite bool      `json:"userFavorite"`
-			UserRating   any       `json:"userRating"`
+			UserRating   int       `json:"userRating"`
 		} `json:"song"`
 		Position float64 `json:"position"`
 	} `json:"data"`
@@ -120,6 +120,15 @@ func Favorite(favorite bool, songId string) {
 		"event":    "favorite",
 		"favorite": favorite,
 		"id":       songId,
+	}
+	websocket.SendRequest(request)
+}
+
+func Rate(songId string, rating int) {
+	request := map[string]any{
+		"event":  "rating",
+		"id":     songId,
+		"rating": rating,
 	}
 	websocket.SendRequest(request)
 }
