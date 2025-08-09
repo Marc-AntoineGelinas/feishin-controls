@@ -12,7 +12,7 @@ On Linux :
 chmod +x feishin-controls
 ```
 
-Download config.yml from this repo, or create it manually with the same name. Then refer to the [setup section](#How-to-use/Setup)
+Download config.yml from this repo, or create it manually with the same name. Then refer to the [setup section](#setup)
 ## Build manually
 feishin-controls is a go project, which means you can easily build the executable for your operating system.
 
