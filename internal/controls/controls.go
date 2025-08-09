@@ -1,7 +1,6 @@
 package controls
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/marc-antoinegelinas/feishin-controls/internal/websocket"
@@ -111,7 +110,7 @@ func ClientSimpleEvent(event SimpleEvent) {
 func Position(position int) {
 	request := map[string]interface{}{
 		"event":    "position",
-		"position": strconv.Itoa(position),
+		"position": position,
 	}
 	websocket.SendRequest(request)
 }
