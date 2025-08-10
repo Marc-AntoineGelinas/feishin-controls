@@ -36,7 +36,6 @@ var rootCmd = &cobra.Command{
 				log.Fatal("config.yml was found, but something else went wrong:\n", err)
 			}
 		}
-
 		websocket.Authenticate()
 	},
 }
