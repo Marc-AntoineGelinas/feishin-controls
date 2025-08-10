@@ -36,14 +36,11 @@ var rootCmd = &cobra.Command{
 				log.Fatal("config.yml was found, but something else went wrong:\n", err)
 			}
 		}
+
+		websocket.Authenticate()
 	},
 }
 
 func Execute() error {
 	return rootCmd.Execute()
-}
-
-func init() {
-	cobra.OnInitialize()
-	websocket.Authenticate()
 }
