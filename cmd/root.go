@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/marc-antoinegelinas/feishin-controls/internal/config"
+	"github.com/marc-antoinegelinas/feishin-controls/internal/websocket"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -35,13 +36,12 @@ var rootCmd = &cobra.Command{
 				log.Fatal("config.yml was found, but something else went wrong:\n", err)
 			}
 		}
+		if cmd.Name() != "init" {
+			websocket.Authenticate()
+		}
 	},
 }
 
 func Execute() error {
 	return rootCmd.Execute()
-}
-
-func init() {
-	cobra.OnInitialize()
 }
